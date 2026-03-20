@@ -6,14 +6,14 @@ import { useCart } from '../components/CartContext';
 export default function Home() {
   const { ajouterAuPanier } = useCart();
 
-  // --- LES PRODUITS (MIS À JOUR AVEC LES BONS NOMS D'IMAGES) ---
+  // --- LES PRODUITS (Noms d'images et de marque corrigés) ---
   const products = [
     { id: 1, name: "Licornette Classic", price: 45, image: "/t-shirt.png" },
     { id: 2, name: "Licorne Urban", price: 45, image: "/t-shirt1.png" },
     { id: 3, name: "Licorne Midnight", price: 45, image: "/t-shirt2.png" },
     { id: 4, name: "Hoodie Magique Rose", price: 65, image: "/sweat1.png" },
     { id: 5, name: "Sweat Oversize Purple", price: 70, image: "/sweat2.png" },
-    { id: 6, name: "Casquette C. Malicorne", price: 25, image: "/cap.png" },
+    { id: 6, name: "Casquette Cmalicorne", price: 25, image: "/cap.png" },
   ];
 
   // --- GESTION DES AVIS ---
@@ -37,16 +37,15 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white font-sans antialiased">
       
-      {/* 1. SECTION HERO (L'ENTRÉE) */}
+      {/* 1. SECTION HERO */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          {/* Image de fond mise à jour */}
-          <img src="/t-shirt.png" alt="Hero" className="w-full h-full object-cover blur-sm opacity-40" />
+          <img src="/t-shirt.png" alt="Hero Cmalicorne" className="w-full h-full object-cover blur-sm opacity-40" />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
         <div className="relative z-10 text-center px-4 mt-16 text-white flex flex-col items-center">
           <h1 className="text-6xl md:text-9xl font-black tracking-tighter uppercase mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300">
-            C. Malicorne
+            Cmalicorne
           </h1>
           <p className="text-lg md:text-2xl font-medium italic opacity-90 tracking-[0.3em] uppercase mb-10">Collection Magique</p>
           <Link 
@@ -58,13 +57,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. LA GRILLE DES 6 PRODUITS */}
+      {/* 2. LA GRILLE DES PRODUITS */}
       <section className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
             <div>
               <h2 className="text-3xl font-black uppercase tracking-tight text-gray-800 underline decoration-purple-500 underline-offset-8">Nos Modèles</h2>
-              <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mt-4 italic">Éditions limitées</p>
+              <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mt-4 italic">Éditions limitées par Cmalicorne</p>
             </div>
           </div>
           
@@ -91,7 +90,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <h3 className="text-[11px] font-black uppercase text-gray-400 tracking-widest mb-1">C. Malicorne</h3>
+                  <h3 className="text-[11px] font-black uppercase text-gray-400 tracking-widest mb-1">Cmalicorne</h3>
                   <h3 className="text-sm font-bold text-gray-800 tracking-tight">{p.name}</h3>
                   <p className="text-purple-600 font-black mt-1 text-sm">{p.price} €</p>
                 </div>
@@ -101,7 +100,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. SECTION AVIS & FORMULAIRE */}
+      {/* 3. SECTION AVIS */}
       <section className="py-24 px-6 bg-gradient-to-b from-white to-purple-50 border-t border-purple-50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
@@ -109,7 +108,6 @@ export default function Home() {
             <p className="text-gray-500 font-medium italic">Partage ta magie avec nous ! ✨</p>
           </div>
 
-          {/* FORMULAIRE */}
           <form onSubmit={envoyerAvis} className="bg-white p-8 rounded-3xl shadow-xl border border-purple-100 mb-20">
             <h3 className="font-black uppercase text-sm mb-6 tracking-widest text-purple-600">Laisse un commentaire</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -126,7 +124,6 @@ export default function Home() {
             </button>
           </form>
 
-          {/* LISTE DES AVIS */}
           <div className="grid grid-cols-1 gap-6">
             {reviews.map((r) => (
               <div key={r.id} className="bg-white/40 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm flex flex-col md:flex-row gap-6 items-start">
