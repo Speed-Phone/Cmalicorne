@@ -6,14 +6,14 @@ import { useCart } from '../components/CartContext';
 export default function Home() {
   const { ajouterAuPanier } = useCart();
 
-  // --- LES PRODUITS ---
+  // --- LES PRODUITS (MIS À JOUR AVEC LES BONS NOMS D'IMAGES) ---
   const products = [
-    { id: 1, name: "Licornette", price: 45, image: "/t shirt.png" },
-    { id: 2, name: "Licorne Kid", price: 35, image: "/t shirt1.png" },
-    { id: 3, name: "Licorne (Logo)", price: 45, image: "/t shirt2.png" },
-    { id: 4, name: "Licorne Girly", price: 50, image: "/t shirt3.png" },
-    { id: 5, name: "Licorne Manga Combat", price: 55, image: "/t shirt4.png" },
-    { id: 6, name: "Licorne Moto Run", price: 55, image: "/t shirt5.png" },
+    { id: 1, name: "Licornette Classic", price: 45, image: "/t-shirt.png" },
+    { id: 2, name: "Licorne Urban", price: 45, image: "/t-shirt1.png" },
+    { id: 3, name: "Licorne Midnight", price: 45, image: "/t-shirt2.png" },
+    { id: 4, name: "Hoodie Magique Rose", price: 65, image: "/sweat1.png" },
+    { id: 5, name: "Sweat Oversize Purple", price: 70, image: "/sweat2.png" },
+    { id: 6, name: "Casquette C. Malicorne", price: 25, image: "/cap.png" },
   ];
 
   // --- GESTION DES AVIS ---
@@ -40,7 +40,8 @@ export default function Home() {
       {/* 1. SECTION HERO (L'ENTRÉE) */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src="/t shirt.png" alt="Hero" className="w-full h-full object-cover blur-sm opacity-40" />
+          {/* Image de fond mise à jour */}
+          <img src="/t-shirt.png" alt="Hero" className="w-full h-full object-cover blur-sm opacity-40" />
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
         <div className="relative z-10 text-center px-4 mt-16 text-white flex flex-col items-center">
@@ -70,7 +71,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {products.map((p) => (
               <div key={p.id} className="group cursor-pointer">
-                <div className="relative overflow-hidden rounded-2xl aspect-[3/4] mb-4 shadow-sm group-hover:shadow-lg transition-all duration-300 border border-purple-50/50">
+                <div className="relative overflow-hidden rounded-[2rem] aspect-[3/4] mb-4 shadow-sm group-hover:shadow-lg transition-all duration-300 border border-purple-50/50">
                   <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   
                   {/* SÉLECTEUR DE TAILLES AU SURVOL */}
@@ -90,8 +91,9 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="text-center">
+                  <h3 className="text-[11px] font-black uppercase text-gray-400 tracking-widest mb-1">C. Malicorne</h3>
                   <h3 className="text-sm font-bold text-gray-800 tracking-tight">{p.name}</h3>
-                  <p className="text-purple-500 font-extrabold mt-0.5 text-xs">{p.price} €</p>
+                  <p className="text-purple-600 font-black mt-1 text-sm">{p.price} €</p>
                 </div>
               </div>
             ))}
@@ -111,14 +113,14 @@ export default function Home() {
           <form onSubmit={envoyerAvis} className="bg-white p-8 rounded-3xl shadow-xl border border-purple-100 mb-20">
             <h3 className="font-black uppercase text-sm mb-6 tracking-widest text-purple-600">Laisse un commentaire</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <input type="text" placeholder="Ton nom" value={nom} onChange={(e) => setNom(e.target.value)} className="bg-gray-50 border border-purple-50 rounded-xl px-6 py-4 focus:outline-none focus:border-purple-300" />
+              <input type="text" placeholder="Ton nom" value={nom} onChange={(e) => setNom(e.target.value)} className="bg-gray-50 border border-purple-50 rounded-xl px-6 py-4 focus:outline-none focus:border-purple-300 text-sm" />
               <select value={note} onChange={(e) => setNote(parseInt(e.target.value))} className="bg-gray-50 border border-purple-50 rounded-xl px-6 py-4 text-yellow-500 font-bold focus:outline-none">
                 <option value="5">★★★★★ (Parfait)</option>
                 <option value="4">★★★★☆ (Super)</option>
                 <option value="3">★★★☆☆ (Pas mal)</option>
               </select>
             </div>
-            <textarea placeholder="Raconte-nous ton expérience..." value={commentaire} onChange={(e) => setCommentaire(e.target.value)} rows={4} className="w-full bg-gray-50 border border-purple-50 rounded-xl px-6 py-4 focus:outline-none mb-6" />
+            <textarea placeholder="Raconte-nous ton expérience..." value={commentaire} onChange={(e) => setCommentaire(e.target.value)} rows={4} className="w-full bg-gray-50 border border-purple-50 rounded-xl px-6 py-4 focus:outline-none mb-6 text-sm" />
             <button className="w-full bg-black text-white py-5 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg hover:bg-purple-600 transition-all active:scale-95">
               Envoyer mon avis magique
             </button>
