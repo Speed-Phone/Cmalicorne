@@ -47,7 +47,7 @@ export default function Navbar() {
           
           {/* GAUCHE : Logo */}
           <Link href="/" className="text-lg md:text-xl font-black uppercase text-purple-600 italic tracking-tighter flex-shrink-0 hover:scale-105 transition-transform">
-            C. Malicorne
+            Cmalicorne
           </Link>
 
           {/* CENTRE : Navigation (Style Contour) */}
