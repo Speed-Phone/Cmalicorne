@@ -7,35 +7,35 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(req: Request) {
   try {
-    const { items } = await req.json();
+    const body = await req.json();
+    console.log("Données reçues du client :", body); // Ça s'affichera dans tes logs Netlify
 
-    // On prépare les articles pour Stripe
-    const lineItems = items.map((item: any) => ({
-      price_data: {
-        currency: 'eur',
-        product_data: {
-          name: `${item.name} - Taille ${item.taille}`,
-        },
-        unit_amount: Math.round(item.price * 100), // Conversion en centimes
-      },
-      quantity: item.quantite,
-    }));
+    // On récupère les infos. Si c'est vide, on met des valeurs par défaut pour éviter le crash.
+    const productName = body.productName || "Article Cmalicorne ✨";
+    const price = body.price || 45; // On met 45 par défaut si rien n'est reçu
 
-    // Création de la session de paiement
-    // ... (garde le début pareil)
     const session = await stripe.checkout.sessions.create({
-      // ... (tes paramètres)
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'eur',
+            product_data: {
+              name: productName,
+            },
+            unit_amount: Math.round(price * 100), // En centimes
+          },
+          quantity: 1,
+        },
+      ],
       mode: 'payment',
       success_url: `${req.headers.get('origin')}/success`,
       cancel_url: `${req.headers.get('origin')}/boutique`,
     });
 
-    // CHANGE ICI : renvoie l'url directement
-    return NextResponse.json({ url: session.url }); 
-// ...
-
+    return NextResponse.json({ url: session.url });
   } catch (err: any) {
-    console.error("Erreur Stripe:", err.message);
+    console.error("Erreur Stripe :", err.message);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
