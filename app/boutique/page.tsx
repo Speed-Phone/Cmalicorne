@@ -3,12 +3,22 @@ import Link from 'next/link';
 import ProductCard from '../../components/ProductCard'; // On va le créer juste après
 
 async function getProducts() {
-  const res = await fetch(
-    `${process.env.WC_URL}/wp-json/wc/v3/products?consumer_key=${process.env.WC_CK}&consumer_secret=${process.env.WC_CS}&per_page=100`,
-    { next: { revalidate: 3600 } } // Ça met à jour les produits toutes les heures
-  );
+  const url = `${process.env.WC_URL}/wp-json/wc/v3/products?per_page=100`;
+  
+  // On crée l'autorisation "propre"
+  const auth = Buffer.from(`${process.env.WC_CK}:${process.env.WC_CS}`).toString('base64');
 
-  if (!res.ok) return [];
+  const res = await fetch(url, {
+    headers: {
+      'Authorization': `Basic ${auth}`,
+    },
+    next: { revalidate: 3600 }
+  });
+
+  if (!res.ok) {
+    console.error("Erreur WooCommerce ! Status:", res.status);
+    return [];
+  }
   return res.json();
 }
 
