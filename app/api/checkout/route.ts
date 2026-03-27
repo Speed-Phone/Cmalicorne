@@ -8,8 +8,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(req: Request) {
   try {
     const { items } = await req.json();
-    
-    // On récupère l'adresse de ton site (Netlify ou local)
     const origin = req.headers.get('origin') || 'https://cmalicorne.netlify.app';
 
     if (!items || items.length === 0) {
@@ -19,10 +17,10 @@ export async function POST(req: Request) {
     const line_items = items.map((item: any) => {
       const unitAmount = Math.round(parseFloat(item.price) * 100);
 
-      // --- FIX DES IMAGES ---
-      // Stripe veut une URL complète (https://...). 
-      // Si ton chemin est relatif, on lui colle l'adresse du site devant.
-      let stripeImage = [];
+      // --- LE FIX TYPESCRIPT ICI ---
+      // On dit explicitement que c'est un tableau de chaines de caractères
+      let stripeImage: string[] = []; 
+      
       if (item.image) {
         const fullImageUrl = item.image.startsWith('http') 
           ? item.image 
@@ -48,7 +46,6 @@ export async function POST(req: Request) {
       payment_method_types: ['card'],
       line_items: line_items,
       mode: 'payment',
-      // On s'assure que ces liens sont aussi complets
       success_url: `${origin}/success`,
       cancel_url: `${origin}/commander`,
     });
